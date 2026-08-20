@@ -1,0 +1,25 @@
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Java / backend
+backend/target/
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# IDE/editor metadata
+.vscode/
+.idea/
+*.iml
+
+# Logs
+*.log
