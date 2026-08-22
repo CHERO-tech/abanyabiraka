@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<![CDATA[<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abanyabiraka — Trusted People. Quality Services.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #FBF8F3; color: #1A1613; font-family: 'Outfit', system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; overflow-x: hidden; }
+    a { color: #1F6F5C; text-decoration: none; }
+    a:hover { color: #175647; text-decoration: underline; }
+    input, button, select { font: inherit; color: inherit; }
+    ::placeholder { color: #9E9184; }
+    @keyframes om-reveal { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    [data-reveal].is-in { animation: om-reveal .7s cubic-bezier(.22,.61,.36,1) both; }
+  </style>
+</helmet>
+
+<header style="position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 32px; padding: 20px clamp(20px, 4vw, 56px)">
+  <div style="display: flex; flex-direction: column; line-height: 1; color: #fff">
+    <span style="font-size: 20px; font-weight: 700; letter-spacing: 0.07em">ABANYABIRAKA</span>
+    <span style="font-size: 10px; letter-spacing: 0.22em; color: rgba(255,255,255,0.72); margin-top: 5px; text-transform: uppercase">Trusted local services</span>
+  </div>
+  <nav style="display: flex; gap: 26px; margin-left: auto; font-size: 15px">
+    <a href="#services" style="color: rgba(255,255,255,0.86)" style-hover="color: #E8C979">Services</a>
+    <a href="#how" style="color: rgba(255,255,255,0.86)" style-hover="color: #E8C979">How it works</a>
+    <a href="#professionals" style="color: rgba(255,255,255,0.86)" style-hover="color: #E8C979">Professionals</a>
+    <a href="#why" style="color: rgba(255,255,255,0.86)" style-hover="color: #E8C979">Why us</a>
+  </nav>
+  <div style="display: flex; align-items: center; gap: 10px">
+    <button style="padding: 10px 18px; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); color: #fff; border-radius: 999px; font-size: 14.5px; cursor: pointer; transition: background .25s, border-color .25s" style-hover="background: rgba(255,255,255,0.22); border-color: #fff">Sign in</button>
+    <button style="padding: 10px 18px; border: none; background: #C89B3C; color: #1A1613; border-radius: 999px; font-size: 14.5px; font-weight: 600; cursor: pointer; transition: transform .25s, background .25s" style-hover="background: #D9AE4E; transform: translateY(-1px)">Join as a pro</button>
+  </div>
+</header>
+
+<div style="{{ stickyStyle }}">
+  <div style="max-width: 1240px; margin: 0 auto; padding: 12px clamp(20px, 4vw, 56px); display: flex; align-items: center; gap: 24px">
+    <span style="font-size: 16px; font-weight: 700; letter-spacing: 0.07em">ABANYABIRAKA</span>
+    <nav style="display: flex; gap: 22px; margin-left: auto; font-size: 14.5px">
+      <a href="#services" style="color: #5F544A" style-hover="color: #1F6F5C">Services</a>
+      <a href="#how" style="color: #5F544A" style-hover="color: #1F6F5C">How it works</a>
+      <a href="#professionals" style="color: #5F544A" style-hover="color: #1F6F5C">Professionals</a>
+    </nav>
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 13.5px; color: #6B6055">
+      <span style="color: #C89B3C; font-size: 15px">♥</span>{{ favCount }}
+    </span>
+    <button style="padding: 9px 18px; border: none; border-radius: 999px; background: #1F6F5C; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .25s" style-hover="background: #24816B">Find a Service</button>
+  </div>
+</div>
+
+<section id="stage" style="position: relative; height: 560vh">
+  <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #15100C; display: flex; align-items: center">
+    <sc-for list="{{ slides }}" as="s" hint-placeholder-count="5">
+      <div style="{{ s.layerStyle }}">
+        <sc-if value="{{ s.hasVideo }}" hint-placeholder-val="{{ true }}">
+          <video src="{{ s.src }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="width: 100%; height: 100%; object-fit: cover"></video>
+        </sc-if>
+        <sc-if value="{{ s.needsFootage }}" hint-placeholder-val="{{ false }}">
+          <div style="width: 100%; height: 100%; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #2A2119 0 14px, #322618 14px 28px)">
+            <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12.5px; letter-spacing: 0.08em; color: #A08E74; text-transform: uppercase">{{ s.note }}</span>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+    <div style="{{ overlayStyle }}"></div>
+
+    <div style="position: relative; z-index: 10; width: 100%; max-width: 1240px; margin: 0 auto; padding: 96px clamp(20px, 4vw, 56px) 92px">
+      <div style="display: inline-flex; align-items: center; gap: 9px; padding: 7px 15px; border-radius: 999px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); backdrop-filter: blur(12px); color: #F2E7D3; font-size: 13px; font-weight: 500">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: #58C0A3"></span>Every professional verified before they appear
+      </div>
+
+      <div style="{{ sceneTextStyle }}">
+        <span style="display: block; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8C979; font-weight: 600; margin-bottom: 12px">{{ sceneLabel }}</span>
+        <h1 style="font-size: clamp(34px, 5vw, 66px); line-height: 1.03; font-weight: 700; letter-spacing: -0.035em; color: #fff; margin: 0 0 14px; max-width: 19ch">{{ sceneTitle }}</h1>
+        <p style="font-size: clamp(15.5px, 1.35vw, 18.5px); line-height: 1.5; color: rgba(255,255,255,0.84); margin: 0; max-width: 50ch">{{ sceneSub }}</p>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 22px">
+        <button onClick="{{ goServices }}" style="padding: 15px 30px; border: none; border-radius: 999px; background: #1F6F5C; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 10px 30px rgba(31,111,92,0.35); transition: transform .25s, box-shadow .25s, background .25s" style-hover="background: #24816B; transform: translateY(-2px); box-shadow: 0 16px 38px rgba(31,111,92,0.45)">Find a Service</button>
+        <button style="padding: 15px 30px; border: 1px solid rgba(255,255,255,0.45); border-radius: 999px; background: rgba(255,255,255,0.1); backdrop-filter: blur(12px); color: #fff; font-size: 16px; font-weight: 500; cursor: pointer; transition: transform .25s, background .25s" style-hover="background: rgba(255,255,255,0.2); transform: translateY(-2px)">Become a Professional</button>
+      </div>
+
+      <div style="max-width: 640px; display: flex; gap: 8px; padding: 9px; border-radius: 999px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.26); backdrop-filter: blur(16px)">
+        <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="What service do you need?" style="flex: 1; min-width: 0; padding: 13px 20px; border: none; border-radius: 999px; background: rgba(255,255,255,0.94); font-size: 15.5px" style-focus="outline: 2px solid #C89B3C; outline-offset: 1px">
+        <button onClick="{{ goServices }}" style="padding: 13px 26px; border: none; border-radius: 999px; background: #C89B3C; color: #1A1613; font-size: 15.5px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background .25s" style-hover="background: #D9AE4E">Search services</button>
+      </div>
+      <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 14px">
+        <sc-for list="{{ suggestions }}" as="c" hint-placeholder-count="6">
+          <button onClick="{{ c.pick }}" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.08); border-radius: 999px; font-size: 13.5px; color: rgba(255,255,255,0.9); cursor: pointer; transition: background .25s, border-color .25s" style-hover="background: rgba(255,255,255,0.2); border-color: #fff">{{ c.name }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="position: absolute; z-index: 12; right: clamp(16px, 3vw, 40px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 4px">
+      <sc-for list="{{ slides }}" as="s" hint-placeholder-count="5">
+        <button onClick="{{ s.pick }}" style="{{ s.railStyle }}">
+          <span style="{{ s.railBar }}"><span style="{{ s.railFill }}"></span></span>{{ s.label }}
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="position: absolute; z-index: 12; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,0.14)">
+      <div style="{{ progressStyle }}"></div>
+    </div>
+    <div style="{{ scrollCueStyle }}">
+      <span style="font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase">Scroll</span>
+      <span style="width: 1px; height: 26px; background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0))"></span>
+    </div>
+  </div>
+</section>
+
+<section id="services" data-reveal="" style="max-width: 1240px; margin: 0 auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 4vw, 56px) 0">
+  <div style="display: flex; align-items: end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 28px">
+    <div>
+      <span style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #1F6F5C; font-weight: 600">Popular services</span>
+      <h2 style="font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 0">The work people book most</h2>
+    </div>
+    <p style="margin: 0; font-size: 15.5px; color: #5F544A; max-width: 44ch">Ten categories, over sixty professions. Every listing shows verified qualifications and real client ratings.</p>
+  </div>
+  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid #EDE4D7">
+    <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="7">
+      <button onClick="{{ fl.pick }}" style="{{ fl.style }}">{{ fl.name }}</button>
+    </sc-for>
+    <sc-if value="{{ isFiltered }}" hint-placeholder-val="{{ false }}">
+      <span style="display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 13.5px; color: #6B6055">
+        {{ filterSummary }}
+        <button onClick="{{ clearFilters }}" style="border: none; background: none; padding: 0; font-size: 13.5px; color: #1F6F5C; cursor: pointer; text-decoration: underline">Clear</button>
+      </span>
+    </sc-if>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 18px">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+      <article style="display: flex; flex-direction: column; background: #fff; border: 1px solid #EDE4D7; border-radius: 18px; overflow: hidden; transition: transform .3s cubic-bezier(.22,.61,.36,1), box-shadow .3s" style-hover="transform: translateY(-5px); box-shadow: 0 18px 40px rgba(26,22,19,0.1)">
+        <div style="position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; overflow: hidden; background: repeating-linear-gradient(135deg, #F3EADC 0 12px, #EFE3D1 12px 24px)">
+          <sc-if value="{{ s.hasVideo }}" hint-placeholder-val="{{ false }}">
+            <video src="{{ s.src }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+          </sc-if>
+          <sc-if value="{{ s.noVideo }}" hint-placeholder-val="{{ true }}">
+            <span style="font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.09em; color: #9C8A72; text-transform: uppercase">{{ s.imageNote }}</span>
+          </sc-if>
+        </div>
+        <div style="padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+            <h3 style="font-size: 19px; font-weight: 600; margin: 0">{{ s.name }}</h3>
+            <span style="display: flex; align-items: center; gap: 5px; font-size: 13.5px; color: #6B6055"><span style="color: #C89B3C; font-size: 15px">★</span>{{ s.rating }}</span>
+          </div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #5F544A">{{ s.desc }}</p>
+          <button onClick="{{ s.view }}" style="margin-top: auto; align-self: flex-start; padding: 10px 18px; border: 1px solid #DCD2C4; border-radius: 999px; background: #FBF8F3; font-size: 14px; font-weight: 500; cursor: pointer; transition: background .25s, border-color .25s, color .25s" style-hover="background: #1F6F5C; border-color: #1F6F5C; color: #fff">View Professionals</button>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+  <sc-if value="{{ noServices }}" hint-placeholder-val="{{ false }}">
+    <p style="margin: 0; padding: 40px 0; text-align: center; font-size: 15px; color: #6B6055">No services match that search. <button onClick="{{ clearFilters }}" style="border: none; background: none; font-size: 15px; color: #1F6F5C; cursor: pointer; text-decoration: underline">Show all services</button></p>
+  </sc-if>
+</section>
+
+<section id="how" data-reveal="" style="max-width: 1240px; margin: 0 auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 4vw, 56px) 0">
+  <span style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #1F6F5C; font-weight: 600">How it works</span>
+  <h2 style="font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 30px">Four steps from search to done</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(224px, 1fr)); gap: 20px">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+      <div style="padding: 22px; border-radius: 16px; background: #fff; border: 1px solid #EDE4D7; transition: transform .3s, box-shadow .3s" style-hover="transform: translateY(-4px); box-shadow: 0 14px 32px rgba(26,22,19,0.08)">
+        <span style="display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: #EAF2EF; color: #1F6F5C; font-size: 15px; font-weight: 700">{{ s.num }}</span>
+        <h3 style="font-size: 18.5px; font-weight: 600; margin: 14px 0 7px">{{ s.title }}</h3>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #5F544A">{{ s.body }}</p>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="why" data-reveal="" style="max-width: min(1240px, calc(100% - clamp(40px, 8vw, 112px))); margin: clamp(56px, 7vw, 96px) auto 0; padding: clamp(40px, 5vw, 60px) clamp(24px, 4vw, 52px); background: #15100C; border-radius: 26px; color: #F5EDE1">
+  <div style="display: flex; align-items: end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 30px">
+    <div>
+      <span style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #C89B3C; font-weight: 600">Why choose us</span>
+      <h2 style="font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 0; color: #fff">Built so both sides can trust it</h2>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); gap: 1px; background: #2E251C; border: 1px solid #2E251C; border-radius: 18px; overflow: hidden">
+    <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="6">
+      <div style="background: #1B1510; padding: 22px; transition: background .3s" style-hover="background: #241C15">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span style="width: 15px; height: 15px; border-radius: 50%; border: 2.5px solid #58C0A3; flex: none"></span>
+          <h3 style="font-size: 17px; font-weight: 600; margin: 0; color: #fff">{{ r.name }}</h3>
+        </div>
+        <p style="margin: 9px 0 0; font-size: 14px; line-height: 1.5; color: #C4B6A5">{{ r.desc }}</p>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="professionals" data-reveal="" style="max-width: 1240px; margin: 0 auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 4vw, 56px) 0">
+  <div style="display: flex; align-items: end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 28px">
+    <div>
+      <span style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #1F6F5C; font-weight: 600">Highly rated</span>
+      <h2 style="font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 0">Professionals clients keep rebooking</h2>
+    </div>
+    <a href="#services" style="font-size: 15px; font-weight: 500">Browse all professionals</a>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(252px, 1fr)); gap: 18px">
+    <sc-for list="{{ pros }}" as="p" hint-placeholder-count="4">
+      <article style="position: relative; background: #fff; border: 1px solid #EDE4D7; border-radius: 18px; padding: 18px; transition: transform .3s, box-shadow .3s" style-hover="transform: translateY(-5px); box-shadow: 0 18px 40px rgba(26,22,19,0.1)">
+        <button onClick="{{ p.toggleFav }}" title="Save to favourites" style="{{ p.favStyle }}">♥</button>
+        <div style="display: flex; align-items: center; gap: 13px">
+          <div style="width: 54px; height: 54px; flex: none; border-radius: 50%; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #F3EADC 0 8px, #EFE3D1 8px 16px); font-family: ui-monospace, Menlo, monospace; font-size: 9px; color: #9C8A72">PHOTO</div>
+          <div style="min-width: 0">
+            <h3 style="font-size: 17.5px; font-weight: 600; margin: 0 0 3px">{{ p.name }}</h3>
+            <p style="margin: 0; font-size: 13.5px; color: #6B6055">{{ p.specialty }}</p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 13.5px; color: #6B6055">
+          <span style="color: #C89B3C; letter-spacing: 1px">{{ p.stars }}</span>{{ p.rating }}
+          <span style="color: #C9BFB2">·</span>{{ p.jobs }}
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #F1E9DC; font-size: 13.5px; color: #6B6055">
+          <span>{{ p.location }}</span>
+          <span style="{{ p.availStyle }}">{{ p.availability }}</span>
+        </div>
+        <button onClick="{{ p.book }}" style="width: 100%; margin-top: 14px; padding: 11px 18px; border: 1px solid #1F6F5C; border-radius: 999px; background: #fff; color: #1F6F5C; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .25s, color .25s" style-hover="background: #1F6F5C; color: #fff">Book this professional</button>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ true }}">
+<section data-reveal="" style="max-width: 1240px; margin: 0 auto; padding: clamp(56px, 7vw, 96px) clamp(20px, 4vw, 56px) 0">
+  <span style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #1F6F5C; font-weight: 600">Testimonials</span>
+  <h2 style="font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 30px">What clients say after the job</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(288px, 1fr)); gap: 18px">
+    <sc-for list="{{ testimonials }}" as="t2" hint-placeholder-count="3">
+      <blockquote style="margin: 0; padding: 24px; background: #fff; border: 1px solid #EDE4D7; border-radius: 18px; display: flex; flex-direction: column; gap: 14px">
+        <span style="color: #C89B3C; letter-spacing: 2px; font-size: 15px">{{ t2.stars }}</span>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.55; color: #2E2721">{{ t2.quote }}</p>
+        <footer style="display: flex; align-items: center; gap: 11px; margin-top: auto; padding-top: 14px; border-top: 1px solid #F1E9DC">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: repeating-linear-gradient(135deg, #F3EADC 0 8px, #EFE3D1 8px 16px); display: grid; place-items: center; font-family: ui-monospace, Menlo, monospace; font-size: 8px; color: #9C8A72">PHOTO</div>
+          <span style="display: flex; flex-direction: column; font-size: 13.5px">
+            <span style="font-weight: 600">{{ t2.name }}</span>
+            <span style="color: #6B6055">{{ t2.meta }}</span>
+          </span>
+        </footer>
+      </blockquote>
+    </sc-for>
+  </div>
+</section>
+</sc-if>
+
+<section data-reveal="" style="max-width: min(1240px, calc(100% - clamp(40px, 8vw, 112px))); margin: clamp(56px, 7vw, 96px) auto 0; padding: clamp(44px, 6vw, 76px) clamp(24px, 4vw, 56px); border-radius: 26px; background: linear-gradient(120deg, #1F6F5C 0%, #175647 62%, #123F35 100%); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap">
+  <div>
+    <h2 style="font-size: clamp(28px, 3.4vw, 44px); font-weight: 700; letter-spacing: -0.03em; margin: 0 0 12px; max-width: 24ch">Need help? Find the right professional today.</h2>
+    <p style="margin: 0; font-size: 16.5px; color: rgba(255,255,255,0.82); max-width: 50ch">Search by trade and district, compare verified profiles, and book in a few minutes.</p>
+  </div>
+  <button style="padding: 16px 34px; border: none; border-radius: 999px; background: #C89B3C; color: #1A1613; font-size: 17px; font-weight: 600; cursor: pointer; transition: transform .25s, background .25s" style-hover="background: #DBB055; transform: translateY(-2px)">Get Started</button>
+</section>
+
+<sc-if value="{{ isBooking }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 24px; background: rgba(14,10,7,0.62); backdrop-filter: blur(6px)">
+  <div style="width: 100%; max-width: 470px; background: #FFFDFA; border-radius: 22px; padding: 26px; box-shadow: 0 30px 70px rgba(14,10,7,0.4)">
+    <sc-if value="{{ bookingOpen }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px">
+          <div>
+            <span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #1F6F5C; font-weight: 600">Book a service</span>
+            <h3 style="font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin: 10px 0 4px">{{ bookingName }}</h3>
+            <p style="margin: 0; font-size: 14px; color: #6B6055">{{ bookingMeta }}</p>
+          </div>
+          <button onClick="{{ closeBooking }}" style="width: 34px; height: 34px; flex: none; border: 1px solid #E7DDCE; border-radius: 50%; background: #fff; font-size: 16px; color: #6B6055; cursor: pointer" style-hover="border-color: #1A1613; color: #1A1613">×</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 20px">
+          <label style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #8C7F71; font-weight: 500">Preferred date</span>
+            <input type="date" value="{{ bookingDate }}" onChange="{{ onBookingDate }}" style="padding: 12px 14px; border: 1px solid #E2D8C9; border-radius: 10px; background: #fff; font-size: 15px" style-focus="outline: 2px solid #1F6F5C; outline-offset: -1px">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #8C7F71; font-weight: 500">Describe the job</span>
+            <textarea value="{{ bookingNote }}" onChange="{{ onBookingNote }}" rows="3" placeholder="e.g. Two-bedroom flat, weekly clean, Saturday mornings" style="padding: 12px 14px; border: 1px solid #E2D8C9; border-radius: 10px; background: #fff; font-size: 15px; resize: vertical; font-family: inherit" style-focus="outline: 2px solid #1F6F5C; outline-offset: -1px"></textarea>
+          </label>
+          <div style="display: flex; gap: 10px; margin-top: 4px">
+            <button onClick="{{ confirmBooking }}" style="{{ confirmStyle }}">Send booking request</button>
+            <button onClick="{{ closeBooking }}" style="padding: 13px 20px; border: 1px solid #E2D8C9; border-radius: 999px; background: #fff; font-size: 15px; cursor: pointer" style-hover="border-color: #1A1613">Cancel</button>
+          </div>
+          <p style="margin: 0; font-size: 12.5px; color: #8C7F71">{{ bookingHint }}</p>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ bookingDone }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align: center; padding: 12px 0 4px">
+        <div style="width: 54px; height: 54px; margin: 0 auto; border-radius: 50%; background: #EAF2EF; color: #1F6F5C; display: grid; place-items: center; font-size: 24px">✓</div>
+        <h3 style="font-size: 23px; font-weight: 700; letter-spacing: -0.02em; margin: 16px 0 8px">Request sent</h3>
+        <p style="margin: 0 auto 20px; font-size: 15px; line-height: 1.5; color: #5F544A; max-width: 34ch">{{ doneMessage }}</p>
+        <button onClick="{{ closeBooking }}" style="padding: 13px 26px; border: none; border-radius: 999px; background: #1F6F5C; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer" style-hover="background: #24816B">Done</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<footer style="margin-top: clamp(56px, 7vw, 96px); background: #15100C; color: #C4B6A5">
+  <div style="max-width: 1240px; margin: 0 auto; padding: clamp(40px, 5vw, 64px) clamp(20px, 4vw, 56px) 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 32px">
+    <div>
+      <div style="font-size: 18px; font-weight: 700; letter-spacing: 0.07em; color: #fff">ABANYABIRAKA</div>
+      <p style="margin: 12px 0 18px; font-size: 14px; line-height: 1.55; max-width: 30ch">A verified marketplace for skilled work across Rwanda. Kinyarwanda, English and French.</p>
+      <div style="display: flex; gap: 8px">
+        <sc-for list="{{ socials }}" as="s" hint-placeholder-count="4">
+          <a href="#" style="width: 34px; height: 34px; border-radius: 50%; border: 1px solid #33291F; display: grid; place-items: center; font-size: 12px; font-weight: 600; color: #C4B6A5; text-decoration: none" style-hover="border-color: #C89B3C; color: #C89B3C">{{ s }}</a>
+        </sc-for>
+      </div>
+    </div>
+    <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+      <div>
+        <div style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8C7A66; margin-bottom: 14px">{{ col.title }}</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px">
+          <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="5">
+            <a href="#" style="color: #C4B6A5" style-hover="color: #fff">{{ l }}</a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <div>
+      <div style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #8C7A66; margin-bottom: 14px">Contact</div>
+      <div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px">
+        <span>Kigali, Rwanda</span>
+        <a href="tel:+250788000000" style="color: #C4B6A5" style-hover="color: #fff">+250 788 000 000</a>
+        <a href="mailto:hello@abanyabiraka.rw" style="color: #C4B6A5" style-hover="color: #fff">hello@abanyabiraka.rw</a>
+        <span>Mon–Sat, 8:00–18:00</span>
+      </div>
+    </div>
+  </div>
+  <div style="max-width: 1240px; margin: 0 auto; padding: 18px clamp(20px, 4vw, 56px) 34px; border-top: 1px solid #2A2119; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 13px">
+    <span>© 2026 Abanyabiraka. All rights reserved.</span>
+    <span style="display: flex; gap: 18px">
+      <a href="#" style="color: #C4B6A5" style-hover="color: #fff">Terms of Service</a>
+      <a href="#" style="color: #C4B6A5" style-hover="color: #fff">Privacy Policy</a>
+      <a href="#" style="color: #C4B6A5" style-hover="color: #fff">Cookie Policy</a>
+    </span>
+  </div>
+</footer>]]>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;overlayStrength&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:70,&quot;min&quot;:25,&quot;max&quot;:92,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showTestimonials&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+const V = "uploads/";
+const SLIDES = [
+  { label: "Laundry", src: V + "A realistic, warm, cinematic video of a beautiful young African woman washing clothes by hand outdoors in a clean, modest African home setting. She is sitting beside a large basin filled with water and colorful clothes, g.mp4" },
+  { label: "Mechanic", src: V + "A realistic, cinematic video of a young African male mechanical technician working in a professional auto repair workshop. He is wearing clean mechanic work clothes and safety gloves, inspecting and repairing a car engine.mp4" },
+  { label: "Babysitter", src: V + "A realistic, cinematic video of a young African female babysitter caring for a happy 4-year-old African child in a bright, comfortable family home. The babysitter is sitting with the child, helping them play with colorful.mp4" },
+  { label: "Gardener", src: V + "A realistic, cinematic video of a young African male gardener maintaining a beautiful residential garden. He is carefully cutting and trimming the grass using a professional lawn mower while wearing appropriate work cloth.mp4" },
+  { label: "Cleaner", src: null, note: "video needed — home cleaning scene" }
+];
+
+const SCENES = [
+  ["Laundry", "Laundry done by hand, done properly.", "Washing, ironing and folding by workers your neighbours already booked and rated."],
+  ["Mechanic", "Your car, back on the road today.", "Certified mechanics for diagnostics, servicing and roadside repairs in your district."],
+  ["Babysitter", "Care you can leave the house for.", "Childcare with checked references, verified identity and reviews from other parents."],
+  ["Gardener", "A garden that looks looked-after.", "Lawn care, trimming and planting, booked by the visit or by the season."],
+  ["Cleaner", "A home that resets itself.", "Deep cleans and regular housekeeping, arranged in a few taps and tracked to completion."]
+];
+
+const SERVICES = [
+  ["Babysitter", "Vetted childcare by the hour or the day, with references checked.", "4.9", "", 2],
+  ["Mechanic", "Engine diagnostics, servicing and roadside repairs near you.", "4.8", "", 1],
+  ["Gardener", "Lawn care, trimming, planting and seasonal garden upkeep.", "4.7", "", 3],
+  ["Cleaner", "Deep cleans and regular housekeeping for homes and offices.", "4.9", "video needed — home cleaning", null],
+  ["Laundry", "Hand washing, machine washing, ironing and folding.", "4.8", "", 0],
+  ["Electrician", "Wiring, installations, fault finding and safety checks.", "4.9", "video needed — electrician", null]
+];
+
+const STEPS = [
+  ["01", "Search for a service", "Filter by trade, district, rating and availability to see who is close by."],
+  ["02", "Choose a trusted professional", "Compare verified profiles, past work and client reviews before deciding."],
+  ["03", "Book the service", "Pick a date, describe the job, and send the request straight from the profile."],
+  ["04", "Get the job done", "Track the booking status, then rate the work once it is complete."]
+];
+
+const REASONS = [
+  ["Verified professionals", "Identity documents and qualifications are reviewed by an administrator before a profile goes live."],
+  ["Easy booking", "Request a date and describe the job in one step. The professional accepts or declines, and you see the status."],
+  ["Transparent pricing", "Rates and scope are agreed in chat before work starts, so there are no surprises afterwards."],
+  ["Customer reviews", "Ratings come only from completed jobs, and the average updates automatically."],
+  ["Secure communication", "Message, share photos and files inside the platform, with read receipts on both sides."],
+  ["Reliable local services", "Search by district and sector so the person you hire is genuinely nearby."]
+];
+
+const PROS = [
+  ["Aline Mukamana", "Housekeeping & laundry", "4.9", "128 jobs", "Kicukiro, Kigali", "Available today"],
+  ["Eric Nsengimana", "Auto mechanic", "4.8", "96 jobs", "Gasabo, Kigali", "Available today"],
+  ["Claudine Uwase", "Childcare", "5.0", "74 jobs", "Nyarugenge, Kigali", "Booked until Fri"],
+  ["Jean Bosco Habimana", "Gardening & landscaping", "4.7", "142 jobs", "Musanze", "Available today"]
+];
+
+const TESTIMONIALS = [
+  ["My electrician arrived the same afternoon and showed me his verified certificate before starting. The wiring has been faultless since.", "Diane K.", "Kimironko · Electrical repair"],
+  ["I booked a cleaner for a move-out and the whole thing was settled in chat. Clear price, clear time, no follow-up calls needed.", "Patrick M.", "Remera · Deep clean"],
+  ["Finding someone I trusted with my daughter was the hard part. Reading real reviews from other parents made the choice easy.", "Solange N.", "Kicukiro · Childcare"]
+];
+
+const FOOTER_COLS = [
+  ["Platform", ["Find a service", "Become a professional", "How it works", "Verification", "Pricing"]],
+  ["Categories", ["Home Services", "Automotive", "Electronics & Tech", "Beauty & Fashion", "Health & Care", "Agriculture"]],
+  ["Company", ["About us", "Careers", "Press", "Help centre", "Report a problem"]]
+];
+
+const SUGGESTIONS = ["Babysitter", "Mechanic", "Gardener", "Cleaner", "Laundry", "Electrician"];
+
+function stars(rating) {
+  const full = Math.round(parseFloat(rating));
+  let s = "";
+  for (let i = 0; i < 5; i++) s += i < full ? "\u2605" : "\u2606";
+  return s;
+}
+
+class Component extends DCLogic {
+  state = { index: 0, flow: 0, query: "", cat: null, favs: {}, booking: null, bookingDate: "", bookingNote: "", bookingDone: false, scrolled: false };
+
+  componentDidMount() {
+    this.sync = () => {
+      const els = document.querySelectorAll("[data-reveal]");
+      if (!els.length) return;
+      document.body.classList.add("reveal-ready");
+      this.syncRan = true;
+      const stage = document.getElementById("stage");
+      let flow = this.state.flow;
+      if (stage) {
+        const r = stage.getBoundingClientRect();
+        const total = stage.offsetHeight - window.innerHeight;
+        const p = Math.min(1, Math.max(0, -r.top / (total || 1)));
+        flow = Math.round(p * (SLIDES.length - 1) * 1000) / 1000;
+      }
+      const past = window.scrollY > window.innerHeight * 0.75;
+      if (past !== this.state.scrolled || flow !== this.state.flow) this.setState({ scrolled: past, flow: flow });
+      els.forEach(el => {
+        if (el.classList.contains("is-in")) return;
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.94) el.classList.add("is-in");
+      });
+    };
+    this.revealAll = () => {
+      if (this.syncRan) return;
+      document.querySelectorAll("[data-reveal]").forEach(el => el.classList.add("is-in"));
+    };
+    window.addEventListener("scroll", this.sync, { passive: true });
+    window.addEventListener("resize", this.sync);
+    this.sync();
+    this.syncTimer = setInterval(this.sync, 400);
+    this.failSafe = setTimeout(this.revealAll, 4000);
+  }
+
+  componentDidUpdate() { if (this.sync) this.sync(); }
+
+  componentWillUnmount() {
+    clearInterval(this.syncTimer);
+    clearTimeout(this.failSafe);
+    window.removeEventListener("scroll", this.sync);
+    window.removeEventListener("resize", this.sync);
+  }
+
+  jumpTo(id) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 70, behavior: "smooth" });
+  }
+
+  jumpToScene(i) {
+    const stage = document.getElementById("stage");
+    if (!stage) return;
+    const total = stage.offsetHeight - window.innerHeight;
+    const top = stage.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (i / (SLIDES.length - 1)) * total, behavior: "smooth" });
+  }
+
+  matches(text) {
+    const q = this.state.query.trim().toLowerCase();
+    return !q || text.toLowerCase().indexOf(q) !== -1;
+  }
+
+  renderVals() {
+
+    const flow = this.state.flow;
+    const sceneIdx = Math.min(SLIDES.length - 1, Math.max(0, Math.round(flow)));
+    const textOpacity = Math.max(0, Math.min(1, 1 - Math.abs(flow - sceneIdx) * 2.4));
+    const cat = this.state.cat;
+    const isFiltered = !!(cat || this.state.query.trim());
+    const visibleServices = SERVICES.filter(s => (!cat || s[0] === cat) && this.matches(s[0] + " " + s[1]));
+    const visiblePros = PROS.filter(p => {
+      if (cat && p[1].toLowerCase().indexOf(cat.toLowerCase().replace(/r$/, "")) === -1 && p[1].toLowerCase().indexOf(cat.toLowerCase()) === -1) return false;
+      return this.matches(p[0] + " " + p[1] + " " + p[4]);
+    });
+    const shownPros = visiblePros.length ? visiblePros : PROS;
+    const bp = this.state.booking !== null ? PROS[this.state.booking] : null;
+    const dim = Math.min(0.92, Math.max(0.25, (Number(this.props.overlayStrength) || 70) / 100));
+    return {
+      query: this.state.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      suggestions: SUGGESTIONS.map(name => ({ name, pick: () => { this.setState({ query: name, cat: null }); this.jumpTo("services"); } })),
+      overlayStyle: "position: absolute; inset: 0; z-index: 5; background: linear-gradient(105deg, rgba(14,10,7," + dim +
+        ") 0%, rgba(14,10,7," + (dim * 0.72).toFixed(2) + ") 48%, rgba(14,10,7," + (dim * 0.3).toFixed(2) +
+        ") 100%), linear-gradient(to top, rgba(14,10,7,0.7) 0%, rgba(14,10,7,0) 42%)",
+      slides: SLIDES.map((s, i) => {
+        const d = Math.abs(flow - i);
+        const near = Math.max(0, 1 - d);
+        const active = Math.round(flow) === i;
+        const fill = Math.max(0, Math.min(1, 1 - Math.abs(flow - i)));
+        return {
+          label: s.label,
+          src: s.src ? encodeURI(s.src) : null,
+          hasVideo: !!s.src,
+          needsFootage: !s.src,
+          note: s.note || "",
+          pick: () => this.jumpToScene(i),
+          layerStyle: "position: absolute; inset: 0; opacity: " + near.toFixed(3) +
+            "; transform: scale(" + (1.1 - 0.07 * near).toFixed(4) + "); will-change: opacity, transform",
+          railStyle: "display: flex; align-items: center; gap: 10px; padding: 7px 12px; border: none; background: none; cursor: pointer; font-size: 12.5px; letter-spacing: 0.04em; font-weight: 500; transition: color .3s; color: " +
+            (active ? "#F5E3BE" : "rgba(255,255,255,0.5)"),
+          railBar: "display: block; position: relative; width: 34px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.28); overflow: hidden; flex: none",
+          railFill: "position: absolute; inset: 0; transform-origin: left center; transform: scaleX(" + fill.toFixed(3) + "); background: #C89B3C"
+        };
+      }),
+      sceneLabel: SCENES[sceneIdx][0],
+      sceneTitle: SCENES[sceneIdx][1],
+      sceneSub: SCENES[sceneIdx][2],
+      sceneTextStyle: "margin-top: 22px; transition: opacity .35s ease, transform .35s ease; opacity: " + textOpacity.toFixed(3) +
+        "; transform: translateY(" + ((1 - textOpacity) * 14).toFixed(2) + "px)",
+      progressStyle: "height: 100%; background: #C89B3C; transform-origin: left center; width: " + (flow / (SLIDES.length - 1) * 100).toFixed(2) + "%",
+      scrollCueStyle: "position: absolute; z-index: 12; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); transition: opacity .4s; opacity: " +
+        (flow < 0.25 ? "1" : "0"),
+      goServices: () => this.jumpTo("services"),
+      services: visibleServices.map(([name, desc, rating, imageNote, vid]) => ({
+        name, desc, rating, imageNote,
+        hasVideo: vid !== null,
+        noVideo: vid === null,
+        src: vid !== null ? encodeURI(SLIDES[vid].src) : null,
+        view: () => { this.setState({ cat: name, query: "" }); this.jumpTo("professionals"); }
+      })),
+      noServices: visibleServices.length === 0,
+      isFiltered,
+      filterSummary: (this.state.query.trim() ? 'Search: "' + this.state.query.trim() + '"' : "Category: " + cat) + " \u00b7 " + visibleServices.length + " services",
+      clearFilters: () => this.setState({ cat: null, query: "" }),
+      filters: [null].concat(SERVICES.map(s => s[0])).map(name => {
+        const active = name === null ? (!cat && !this.state.query.trim()) : cat === name;
+        return {
+          name: name === null ? "All services" : name,
+          pick: () => this.setState({ cat: name, query: "" }),
+          style: "padding: 8px 16px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background .25s, border-color .25s, color .25s; border: 1px solid " +
+            (active ? "#1F6F5C" : "#E2D8C9") + "; background: " + (active ? "#1F6F5C" : "#fff") + "; color: " + (active ? "#fff" : "#5F544A")
+        };
+      }),
+      stickyStyle: "position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: rgba(251,248,243,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid #EDE4D7; transition: transform .35s cubic-bezier(.22,.61,.36,1), opacity .35s; transform: translateY(" +
+        (this.state.scrolled ? "0" : "-102%") + "); opacity: " + (this.state.scrolled ? "1" : "0") + "; pointer-events: " + (this.state.scrolled ? "auto" : "none"),
+      favCount: Object.keys(this.state.favs).filter(k => this.state.favs[k]).length,
+      isBooking: this.state.booking !== null,
+      bookingOpen: this.state.booking !== null && !this.state.bookingDone,
+      bookingDone: this.state.bookingDone,
+      bookingName: bp ? bp[0] : "",
+      bookingMeta: bp ? bp[1] + " \u00b7 " + bp[4] + " \u00b7 " + bp[5] : "",
+      bookingDate: this.state.bookingDate,
+      bookingNote: this.state.bookingNote,
+      bookingHint: "The professional accepts or declines, and you can track the status from your bookings.",
+      doneMessage: bp ? bp[0].split(" ")[0] + " will confirm shortly. You'll get a notification as soon as the booking is accepted." : "",
+      onBookingDate: e => this.setState({ bookingDate: e.target.value }),
+      onBookingNote: e => this.setState({ bookingNote: e.target.value }),
+      confirmBooking: () => { if (this.state.bookingDate) this.setState({ bookingDone: true }); },
+      confirmStyle: "flex: 1; padding: 13px 20px; border: none; border-radius: 999px; font-size: 15px; font-weight: 600; transition: background .25s; background: " +
+        (this.state.bookingDate ? "#1F6F5C" : "#CFCBC3") + "; color: #fff; cursor: " + (this.state.bookingDate ? "pointer" : "not-allowed"),
+      closeBooking: () => this.setState({ booking: null, bookingDone: false, bookingDate: "", bookingNote: "" }),
+      steps: STEPS.map(([num, title, body]) => ({ num, title, body })),
+      reasons: REASONS.map(([name, desc]) => ({ name, desc })),
+      pros: shownPros.map(([name, specialty, rating, jobs, location, availability], i) => ({
+        name, specialty, rating, jobs, location, availability, stars: stars(rating),
+        book: () => this.setState({ booking: PROS.findIndex(p => p[0] === name), bookingDone: false }),
+        toggleFav: e => { e.stopPropagation(); const favs = Object.assign({}, this.state.favs); favs[name] = !favs[name]; this.setState({ favs: favs }); },
+        favStyle: "position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; cursor: pointer; transition: background .25s, color .25s, border-color .25s; border: 1px solid " +
+          (this.state.favs[name] ? "#C89B3C" : "#EDE4D7") + "; background: " + (this.state.favs[name] ? "#FBF1DC" : "#fff") + "; color: " + (this.state.favs[name] ? "#C89B3C" : "#C9BFB2"),
+        availStyle: "padding: 4px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 500; " +
+          (availability.indexOf("Available") === 0
+            ? "background: #EAF2EF; color: #1F6F5C;"
+            : "background: #F6EEE2; color: #97783C;")
+      })),
+      testimonials: TESTIMONIALS.map(([quote, name, meta]) => ({ quote, name, meta, stars: stars("5") })),
+      showTestimonials: this.props.showTestimonials !== false,
+      socials: ["IG", "X", "FB", "IN"],
+      footerCols: FOOTER_COLS.map(([title, links]) => ({ title, links }))
+    };
+  }
+}
+</script>
+</body>
+</html>

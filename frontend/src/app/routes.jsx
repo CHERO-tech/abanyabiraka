@@ -1,33 +1,38 @@
-import HomePage from '../features/auth/pages/LoginPage';
+import WorkerSearchPage from '../features/worker/pages/WorkerSearchPage';
+import LoginPage from '../features/auth/pages/LoginPage';
+import RegisterPage from '../features/auth/pages/RegisterPage';
+import BookingFormPage from '../features/booking/pages/BookingFormPage';
+import ChatWindowPage from '../features/chat/pages/ChatWindowPage';
+import AdminDashboardPage from '../features/admin/pages/AdminDashboardPage';
 
 export const appRoutes = [
   {
     path: '/',
-    element: HomePage,
+    element: WorkerSearchPage,
     index: true,
   },
   {
     path: '/login',
-    element: HomePage,
+    element: LoginPage,
   },
   {
     path: '/register',
-    element: () => <div>Register Page</div>,
+    element: RegisterPage,
   },
   {
     path: '/workers',
-    element: () => <div>Worker Search Page</div>,
+    element: WorkerSearchPage,
   },
   {
     path: '/booking',
-    element: () => <div>Booking Page</div>,
+    element: BookingFormPage,
   },
   {
     path: '/chat',
-    element: () => <div>Chat Page</div>,
+    element: ChatWindowPage,
   },
   {
     path: '/admin',
-    element: () => <div>Admin Dashboard</div>,
+    element: AdminDashboardPage,
   },
 ];
