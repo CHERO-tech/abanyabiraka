@@ -1,0 +1,28 @@
+import { useEffect, useState } from 'react';
+import { FOOTER_COLS, PROS, REASONS, SERVICES, STEPS, TESTIMONIALS, stars } from './marketplaceData';
+
+export function MarketplaceHeader({ favouriteCount = 0 }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => { const sync = () => setScrolled(window.scrollY > window.innerHeight * .75); window.addEventListener('scroll', sync, { passive: true }); sync(); return () => window.removeEventListener('scroll', sync); }, []);
+  return <><header className="marketplace-header"><a className="brand" href="#stage">ABANYABIRAKA<span>Trusted local services</span></a><nav><a href="#services">Services</a><a href="#how">How it works</a><a href="#professionals">Professionals</a><a href="#why">Why us</a></nav><div className="header-actions"><a className="signin" href="/login">Sign in</a><a className="join" href="/register">Join as a pro</a></div></header><div className={scrolled ? 'sticky-nav shown' : 'sticky-nav'}><div><strong>ABANYABIRAKA</strong><nav><a href="#services">Services</a><a href="#how">How it works</a><a href="#professionals">Professionals</a></nav><span>♥ {favouriteCount}</span><a className="find-link" href="#services">Find a Service</a></div></div></>;
+}
+
+export function ServicesSection({ services, activeCategory, onCategory, onView }) {
+  const categories = ['All services', ...SERVICES.map(([name]) => name)];
+  return <section className="page-width section" id="services">
+    <div className="section-heading"><div><span className="eyebrow">Popular services</span><h2>The work people book most</h2></div><p>Ten categories, over sixty professions. Every listing shows verified qualifications and real client ratings.</p></div>
+    <div className="filter-row">{categories.map((category) => <button className={activeCategory === category || (!activeCategory && category === 'All services') ? 'filter active' : 'filter'} key={category} onClick={() => onCategory(category === 'All services' ? null : category)}>{category}</button>)}</div>
+    <div className="service-grid">{services.map(([name, desc, rating, imageNote]) => <article className="service-card" key={name}><div className="media-placeholder">{imageNote || 'SERVICE PREVIEW'}</div><div className="card-body"><div className="card-title"><h3>{name}</h3><span>★ {rating}</span></div><p>{desc}</p><button className="outline-button" onClick={() => onView(name)}>View Professionals</button></div></article>)}</div>
+    {!services.length && <p className="empty-state">No services match that search.</p>}
+  </section>;
+}
+
+export function HowSection() { return <section className="page-width section" id="how"><span className="eyebrow">How it works</span><h2>Four steps from search to done</h2><div className="step-grid">{STEPS.map(([num, title, body]) => <article className="step-card" key={num}><span className="step-number">{num}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section>; }
+
+export function WhySection() { return <section className="why-section section" id="why"><div className="section-heading"><div><span className="eyebrow gold">Why choose us</span><h2>Built so both sides can trust it</h2></div></div><div className="reason-grid">{REASONS.map(([name, desc]) => <article key={name}><span /><h3>{name}</h3><p>{desc}</p></article>)}</div></section>; }
+
+export function ProfessionalsSection({ professionals, favourites, onFavourite, onBook }) { return <section className="page-width section" id="professionals"><div className="section-heading"><div><span className="eyebrow">Highly rated</span><h2>Professionals clients keep rebooking</h2></div><a href="#services">Browse all professionals</a></div><div className="pro-grid">{professionals.map(([name, specialty, rating, jobs, location, availability]) => <article className="pro-card" key={name}><button className={favourites[name] ? 'favourite saved' : 'favourite'} onClick={() => onFavourite(name)} aria-label={`Save ${name}`}>♥</button><div className="pro-heading"><div className="avatar">PHOTO</div><div><h3>{name}</h3><p>{specialty}</p></div></div><div className="pro-rating"><span>{stars(rating)}</span> {rating} <i>·</i> {jobs}</div><div className="pro-meta"><span>{location}</span><b className={availability.startsWith('Available') ? 'available' : 'booked'}>{availability}</b></div><button className="full-button" onClick={() => onBook(PROS.findIndex(([person]) => person === name))}>Book this professional</button></article>)}</div></section>; }
+
+export function TestimonialsSection() { return <section className="page-width section"><span className="eyebrow">Testimonials</span><h2>What clients say after the job</h2><div className="testimonial-grid">{TESTIMONIALS.map(([quote, name, meta]) => <blockquote key={name}><span className="stars">★★★★★</span><p>{quote}</p><footer><div className="avatar small">PHOTO</div><span><b>{name}</b>{meta}</span></footer></blockquote>)}</div></section>; }
+
+export function Footer() { return <footer className="site-footer"><div className="footer-grid page-width"><div><strong>ABANYABIRAKA</strong><p>A verified marketplace for skilled work across Rwanda. Kinyarwanda, English and French.</p><div className="socials">{['IG', 'X', 'FB', 'IN'].map((social) => <a href="#" key={social}>{social}</a>)}</div></div>{FOOTER_COLS.map(([title, links]) => <div key={title}><span className="footer-label">{title}</span>{links.map((link) => <a href="#" key={link}>{link}</a>)}</div>)}<div><span className="footer-label">Contact</span><span>Kigali, Rwanda</span><a href="tel:+250788000000">+250 788 000 000</a><a href="mailto:hello@abanyabiraka.rw">hello@abanyabiraka.rw</a><span>Mon-Sat, 8:00-18:00</span></div></div><div className="copyright page-width">© 2026 Abanyabiraka. All rights reserved.</div></footer>; }

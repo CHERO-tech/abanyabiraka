@@ -1,0 +1,7 @@
+import Modal from '../../../shared/components/Modal';
+
+export default function BookingDialog({ professional, date, note, done, onDate, onNote, onConfirm, onClose }) {
+  if (!professional) return null;
+  const [name, specialty, , , location, availability] = professional;
+  return <Modal isOpen title="Book a service" onClose={onClose}><div className="booking-copy"><span className="eyebrow">Book a service</span><h3>{name}</h3><p>{specialty} · {location} · {availability}</p></div>{done ? <div className="booking-done"><div className="success-mark">✓</div><h3>Request sent</h3><p>{name.split(' ')[0]} will confirm shortly. You'll get a notification as soon as the booking is accepted.</p><button className="full-button" onClick={onClose}>Done</button></div> : <div className="booking-form"><label>Preferred date<input type="date" value={date} onChange={onDate} /></label><label>Describe the job<textarea rows="3" value={note} onChange={onNote} placeholder="e.g. Two-bedroom flat, weekly clean, Saturday mornings" /></label><button className="full-button" disabled={!date} onClick={onConfirm}>Send booking request</button><button className="cancel-button" onClick={onClose}>Cancel</button><small>The professional accepts or declines, and you can track the status from your bookings.</small></div>}</Modal>;
+}
