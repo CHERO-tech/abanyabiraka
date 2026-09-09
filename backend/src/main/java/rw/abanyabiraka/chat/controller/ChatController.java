@@ -1,0 +1,10 @@
+package rw.abanyabiraka.chat.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/chats")
+public class ChatController {
+    // TODO: implement chat message APIs.
+}

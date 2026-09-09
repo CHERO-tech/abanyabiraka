@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: abanyabiraka-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/abanyabiraka
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: change-me-in-production
+  expiration-ms: 86400000
+
+app:
+  name: Abanyabiraka

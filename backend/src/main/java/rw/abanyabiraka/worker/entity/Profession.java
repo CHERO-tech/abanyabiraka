@@ -1,0 +1,29 @@
+package rw.abanyabiraka.worker.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "professions")
+public class Profession {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    public Profession() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
