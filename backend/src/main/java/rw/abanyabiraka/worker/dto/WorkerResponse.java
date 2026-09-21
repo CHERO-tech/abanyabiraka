@@ -1,56 +1,30 @@
-package rw.abanyabiraka.worker.entity;
+package rw.abanyabiraka.worker.dto;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-@Entity
-@Table(name = "workers")
-public class Worker {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class WorkerResponse {
+
     private Long id;
-
-    @Column(nullable = false)
     private String fullName;
-
     private String bio;
     private String phone;
     private String email;
     private boolean verified;
-
     private String district;
     private String sector;
-
     private BigDecimal rating;
-
-    @Column(nullable = false)
-    private boolean available = true;
-
+    private boolean available;
     private Integer yearsOfExperience;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @ManyToMany
-    @JoinTable(
-            name = "worker_professions",
-            joinColumns = @JoinColumn(name = "worker_id"),
-            inverseJoinColumns = @JoinColumn(name = "profession_id")
-    )
-    private Set<Profession> professions = new HashSet<>();
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    public Worker() {
-    }
+    private String categoryName;
+    private List<String> professions;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFullName() {
@@ -133,35 +107,19 @@ public class Worker {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public Set<Profession> getProfessions() {
+    public List<String> getProfessions() {
         return professions;
     }
 
-    public void setProfessions(Set<Profession> professions) {
+    public void setProfessions(List<String> professions) {
         this.professions = professions;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
