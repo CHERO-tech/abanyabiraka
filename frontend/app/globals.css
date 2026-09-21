@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color: #1a1a1a; background: #f8f8f7; font-synthesis: none; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; }
+button, input { font: inherit; }
+
+@layer components {
+  .container-shell { @apply mx-auto w-[min(1160px,calc(100%-40px))]; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-brand-600; }
+  .section-title { @apply text-3xl font-semibold tracking-[-0.04em] text-ink md:text-5xl; }
+  .focus-ring { @apply focus:outline-none focus:ring-4 focus:ring-brand-100; }
+}
