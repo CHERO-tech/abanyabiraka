@@ -4,27 +4,22 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "qualification_documents")
-public class QualificationDocument {
+@Table(name = "portfolio_items")
+public class PortfolioItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "worker_id")
+    @JoinColumn(name = "worker_id", nullable = false)
     private Worker worker;
 
     private String fileName;
     private String fileUrl;
-    private String documentType;
+    private String caption;
+    private LocalDateTime createdAt;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private DocumentStatus status = DocumentStatus.PENDING;
-
-    private LocalDateTime uploadedAt;
-
-    public QualificationDocument() {
+    public PortfolioItem() {
     }
 
     public Long getId() {
@@ -55,27 +50,19 @@ public class QualificationDocument {
         this.fileUrl = fileUrl;
     }
 
-    public String getDocumentType() {
-        return documentType;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setDocumentType(String documentType) {
-        this.documentType = documentType;
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
-    public DocumentStatus getStatus() {
-        return status;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setStatus(DocumentStatus status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getUploadedAt() {
-        return uploadedAt;
-    }
-
-    public void setUploadedAt(LocalDateTime uploadedAt) {
-        this.uploadedAt = uploadedAt;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
