@@ -27,3 +27,4 @@ jwt:
 
 app:
   name: Abanyabiraka
+  upload-dir: uploads

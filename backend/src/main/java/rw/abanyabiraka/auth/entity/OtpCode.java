@@ -99,12 +99,4 @@ public class OtpCode {
     public void setAttempts(int attempts) {
         this.attempts = attempts;
     }
-
-//    public Instant getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    public void setCreatedAt(Instant createdAt) {
-//        this.createdAt = createdAt;
-//    }
 }
