@@ -6,10 +6,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/workers/[id]/page": [
+    "/booking/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/workers/[id]/page.js"
+      "static/chunks/app/booking/page.js"
+    ],
+    "/workers/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/workers/page.js"
     ]
   }
 }
