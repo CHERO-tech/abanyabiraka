@@ -2,6 +2,7 @@ package rw.abanyabiraka.client.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import rw.abanyabiraka.auth.entity.User;
 
 @Entity
 @Table(name = "clients")
@@ -9,6 +10,10 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
     @Column(nullable = false)
     private String fullName;
@@ -22,6 +27,14 @@ public class Client {
 
     public Long getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getFullName() {
