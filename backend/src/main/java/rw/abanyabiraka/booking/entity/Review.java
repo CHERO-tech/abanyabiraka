@@ -11,6 +11,7 @@ public class Review {
     private Long id;
 
     private Long bookingId;
+    private Long workerId;
     private Long clientId;
     private int rating;
     private String comment;
@@ -29,6 +30,14 @@ public class Review {
 
     public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public Long getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Long workerId) {
+        this.workerId = workerId;
     }
 
     public Long getClientId() {
