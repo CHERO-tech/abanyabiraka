@@ -1,9 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/login/page": "app/login/page.js",
-  "/booking/page": "app/booking/page.js",
-  "/workers/page": "app/workers/page.js",
-  "/register/page": "app/register/page.js",
   "/page": "app/page.js",
-  "/workers/[id]/page": "app/workers/[id]/page.js"
+  "/workers/page": "app/workers/page.js",
+  "/verify-otp/page": "app/verify-otp/page.js",
+  "/register/page": "app/register/page.js",
+  "/login/page": "app/login/page.js"
 }

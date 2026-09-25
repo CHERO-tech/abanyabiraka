@@ -1,9 +1,0 @@
-{
-  "/_not-found/page": "/_not-found",
-  "/login/page": "/login",
-  "/booking/page": "/booking",
-  "/workers/page": "/workers",
-  "/register/page": "/register",
-  "/page": "/",
-  "/workers/[id]/page": "/workers/[id]"
-}
