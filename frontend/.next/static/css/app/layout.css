@@ -916,6 +916,9 @@ video {
 .w-\[30rem\] {
   width: 30rem;
 }
+.w-\[82\%\] {
+  width: 82%;
+}
 .w-full {
   width: 100%;
 }
@@ -1759,6 +1762,10 @@ button, input { font: inherit; }
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.hover\:text-black\/60:hover {
+  color: rgb(0 0 0 / 0.6);
+}
+
 .hover\:text-brand-600:hover {
   --tw-text-opacity: 1;
   color: rgb(234 88 12 / var(--tw-text-opacity, 1));
@@ -2045,6 +2052,10 @@ button, input { font: inherit; }
 
   .lg\:grid-cols-\[1\.35fr_1fr\] {
     grid-template-columns: 1.35fr 1fr;
+  }
+
+  .lg\:grid-cols-\[1fr_1fr\] {
+    grid-template-columns: 1fr 1fr;
   }
 
   .lg\:grid-cols-\[1fr_360px\] {
