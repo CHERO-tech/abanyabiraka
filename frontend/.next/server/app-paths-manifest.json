@@ -1,4 +1,13 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/admin/page": "app/admin/page.js"
+  "/admin/approvals/page": "app/admin/approvals/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/booking/page": "app/booking/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/reset-password/page": "app/reset-password/page.js",
+  "/verify-otp/page": "app/verify-otp/page.js",
+  "/workers/page": "app/workers/page.js",
+  "/workers/[id]/page": "app/workers/[id]/page.js"
 }

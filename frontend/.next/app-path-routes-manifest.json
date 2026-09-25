@@ -1,0 +1,13 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/admin/approvals/page": "/admin/approvals",
+  "/admin/page": "/admin",
+  "/booking/page": "/booking",
+  "/login/page": "/login",
+  "/page": "/",
+  "/register/page": "/register",
+  "/reset-password/page": "/reset-password",
+  "/verify-otp/page": "/verify-otp",
+  "/workers/page": "/workers",
+  "/workers/[id]/page": "/workers/[id]"
+}
