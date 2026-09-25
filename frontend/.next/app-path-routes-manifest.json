@@ -1,0 +1,18 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/admin/page": "/admin",
+  "/admin/categories/page": "/admin/categories",
+  "/admin/bookings/page": "/admin/bookings",
+  "/admin/approvals/page": "/admin/approvals",
+  "/admin/reports/page": "/admin/reports",
+  "/admin/users/page": "/admin/users",
+  "/booking/page": "/booking",
+  "/login/page": "/login",
+  "/dashboard/client/page": "/dashboard/client",
+  "/page": "/",
+  "/reset-password/page": "/reset-password",
+  "/register/page": "/register",
+  "/verify-otp/page": "/verify-otp",
+  "/workers/page": "/workers",
+  "/workers/[id]/page": "/workers/[id]"
+}
