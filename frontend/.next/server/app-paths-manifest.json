@@ -1,7 +1,6 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/workers/page": "app/workers/page.js",
-  "/verify-otp/page": "app/verify-otp/page.js",
-  "/register/page": "app/register/page.js",
-  "/login/page": "app/login/page.js"
+  "/login/page": "app/login/page.js",
+  "/reset-password/page": "app/reset-password/page.js"
 }
