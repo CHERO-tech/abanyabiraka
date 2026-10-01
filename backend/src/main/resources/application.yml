@@ -1,10 +1,10 @@
 spring:
   application:
-    name: abanyabiraka-backend
+    name: Abanyabiraka
   datasource:
-    url: jdbc:postgresql://localhost:5432/abanyabiraka
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/Abanyabiraka
+    username:
+    password:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -16,12 +16,13 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    validate-on-migrate: false
 
 server:
   port: 8080
 
 jwt:
-  secret: change-me-in-production
+  secret: "abanyabiraka-dev-secret-key-change-me-in-production-2026"
   expiration-ms: 86400000
 
 app:
