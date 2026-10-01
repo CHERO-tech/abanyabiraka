@@ -1,27 +1,24 @@
-package rw.abanyabiraka.booking.entity;
+package rw.abanyabiraka.booking.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "reviews")
-public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ReviewResponse {
 
+    private Long id;
     private Long bookingId;
     private Long workerId;
     private Long clientId;
+    private String clientName;
     private int rating;
     private String comment;
     private LocalDateTime createdAt;
 
-    public Review() {
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getBookingId() {
@@ -46,6 +43,14 @@ public class Review {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public int getRating() {
