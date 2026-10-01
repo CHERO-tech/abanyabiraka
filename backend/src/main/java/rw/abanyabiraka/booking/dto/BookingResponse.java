@@ -1,32 +1,25 @@
-package rw.abanyabiraka.booking.entity;
+package rw.abanyabiraka.booking.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "bookings")
-public class Booking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookingResponse {
+
     private Long id;
-
     private Long workerId;
+    private String workerName;
     private Long clientId;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private BookingStatus status = BookingStatus.PENDING;
-
+    private String clientName;
+    private String status;
     private String description;
-
     private LocalDateTime bookingDate;
     private LocalDateTime createdAt;
 
-    public Booking() {
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getWorkerId() {
@@ -37,6 +30,14 @@ public class Booking {
         this.workerId = workerId;
     }
 
+    public String getWorkerName() {
+        return workerName;
+    }
+
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
+    }
+
     public Long getClientId() {
         return clientId;
     }
@@ -45,11 +46,19 @@ public class Booking {
         this.clientId = clientId;
     }
 
-    public BookingStatus getStatus() {
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(BookingStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
