@@ -12,6 +12,10 @@ public class Profession {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Profession() {
     }
 
@@ -25,5 +29,13 @@ public class Profession {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
