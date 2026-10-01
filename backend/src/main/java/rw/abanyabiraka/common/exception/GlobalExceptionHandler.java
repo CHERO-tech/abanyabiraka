@@ -2,6 +2,7 @@ package rw.abanyabiraka.common.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -9,6 +10,14 @@ import rw.abanyabiraka.common.response.ApiResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    // Without this, @PreAuthorize's AccessDeniedException falls through to the generic
+    // Exception handler below and comes back as a misleading 500 instead of a 403.
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ApiResponse.failure("You do not have permission to do this"));
+    }
 
     @ExceptionHandler(AuthException.class)
     public ResponseEntity<ApiResponse<Void>> handleAuthException(AuthException ex) {

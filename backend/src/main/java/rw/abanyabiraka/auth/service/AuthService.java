@@ -1,5 +1,6 @@
 package rw.abanyabiraka.auth.service;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,6 +74,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(role);
         user.setEnabled(false);
+        user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
 
         String identifier = hasPhone ? request.getPhone() : request.getEmail();
