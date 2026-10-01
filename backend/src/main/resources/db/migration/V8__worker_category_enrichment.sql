@@ -1,0 +1,16 @@
+
+
+ALTER TABLE workers ADD COLUMN IF NOT EXISTS district VARCHAR(100);
+ALTER TABLE workers ADD COLUMN IF NOT EXISTS sector VARCHAR(100);
+ALTER TABLE workers ADD COLUMN IF NOT EXISTS rating NUMERIC(3,2);
+ALTER TABLE workers ADD COLUMN IF NOT EXISTS available BOOLEAN NOT NULL DEFAULT TRUE;
+ALTER TABLE workers ADD COLUMN IF NOT EXISTS years_of_experience INT;
+ALTER TABLE workers ADD COLUMN IF NOT EXISTS category_id BIGINT REFERENCES categories(id);
+
+ALTER TABLE professions ADD COLUMN IF NOT EXISTS category_id BIGINT REFERENCES categories(id);
+
+CREATE TABLE IF NOT EXISTS worker_professions (
+    worker_id     BIGINT NOT NULL REFERENCES workers(id) ON DELETE CASCADE,
+    profession_id BIGINT NOT NULL REFERENCES professions(id) ON DELETE CASCADE,
+    PRIMARY KEY (worker_id, profession_id)
+);
