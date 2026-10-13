@@ -12,7 +12,13 @@ public class Booking {
 
     private Long workerId;
     private Long clientId;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingStatus status = BookingStatus.PENDING;
+
+    private String description;
+
     private LocalDateTime bookingDate;
     private LocalDateTime createdAt;
 
@@ -39,12 +45,20 @@ public class Booking {
         this.clientId = clientId;
     }
 
-    public String getStatus() {
+    public BookingStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(BookingStatus status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getBookingDate() {

@@ -1,23 +1,30 @@
 # Abanyabiraka Frontend
 
-The frontend uses Next.js App Router, Tailwind CSS, and a white/orange visual
-system for the Abanyabiraka marketplace.
+Next.js App Router + Tailwind CSS, with a white/orange visual system. Talks to the Spring Boot API in `../backend`.
 
 ## Scripts
 
 - `npm install`
-- `npm run dev` - starts the app at http://localhost:3000
-- `npm run build` - creates the production build
-- `npm run start` - serves the production build
+- `cp .env.example .env`: sets `NEXT_PUBLIC_API_BASE_URL` (default `http://localhost:8080/api`)
+- `npm run dev`: starts the app at http://localhost:3000 (start the backend first)
+- `npm run build` / `npm run start`: production build and serve
 
-## Current foundation
+## Layout
 
-- `app/layout.js` defines metadata, Geist typography, and the global shell.
-- `app/globals.css` defines Tailwind layers and shared layout utilities.
-- `app/page.js` contains the first landing page: discovery search, service
-	categories, verified professionals, and the worker call-to-action.
-- Brand tokens live in `tailwind.config.js`: orange `500` is `#F97316`, with
-	white, warm canvas, and ink neutrals supporting it.
+- `app/`: one folder per route. Protected areas have a `layout.js` that wraps them in `RequireRole`
+  (`admin` → ADMIN, `dashboard/client` + `booking` → CLIENT, `dashboard/worker` → WORKER, `chat` → CLIENT/WORKER).
+- `lib/api/`: `client.js` (axios, JWT header, session expiry, error messages) and `index.js` (one function per endpoint).
+- `lib/session.js`: the logged-in session in localStorage. `lib/format.js`: display helpers. `lib/rwanda.js`: districts.
+- `components/AuthProvider.js`: `useAuth()` gives `{ session, profile, ready, signIn, signOut }`.
+  `profile` comes from `GET /api/auth/me` and includes `workerId` / `clientId`.
+- `components/ui.js`: Spinner, ErrorNote, PreviewBanner, AccountLinks, LogoutButton.
+- `locales/`: en/fr/ki translation files (not wired up yet).
+- Brand tokens are in `tailwind.config.js`: orange `500` is `#F97316`, with white, warm canvas, and ink neutrals.
 
-The previous React Router implementation remains under `src/` while the
-feature pages are migrated into App Router routes milestone by milestone.
+## Status
+
+Live against the API: auth (login, register, OTP, reset), worker search and profile, booking, client and worker dashboards, reviews, worker profile editor with uploads, admin categories and approvals.
+
+Preview data (yellow banner): chat and admin dashboard/users/reports/bookings. Their backend is on unmerged branches or doesn't exist yet.
+
+Details, the backend gaps found, and how to test: [`../docs/frontend-api-integration.md`](../docs/frontend-api-integration.md).
