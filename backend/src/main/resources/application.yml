@@ -1,10 +1,26 @@
 spring:
   application:
     name: Abanyabiraka
+  # Reads KEY=VALUE pairs from backend/.env (gitignored) so secrets like MAIL_PASSWORD stay out of git.
+  config:
+    import: optional:file:.env[.properties]
+  # Gmail SMTP for OTP emails. MAIL_USERNAME = the Gmail address, MAIL_PASSWORD = a Google App Password.
+  # Leave them empty and codes are only written to the log (fine for local development).
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000
   datasource:
-    url: jdbc:postgresql://localhost:5432/Abanyabiraka
-    username:
-    password:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/Abanyabiraka}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,8 +38,8 @@ server:
   port: 8080
 
 jwt:
-  secret: "abanyabiraka-dev-secret-key-change-me-in-production-2026"
-  expiration-ms: 86400000
+  secret: ${JWT_SECRET:abanyabiraka-dev-secret-key-change-me-in-production-2026}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
 
 app:
   name: Abanyabiraka
