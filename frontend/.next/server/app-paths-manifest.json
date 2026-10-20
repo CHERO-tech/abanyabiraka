@@ -1,4 +1,5 @@
 {
-  "/dashboard/client/page": "app/dashboard/client/page.js",
-  "/dashboard/worker/profile/page": "app/dashboard/worker/profile/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/dashboard/worker/profile/page": "app/dashboard/worker/profile/page.js",
+  "/notifications/page": "app/notifications/page.js"
 }
