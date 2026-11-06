@@ -17,6 +17,7 @@ services:
     rootDir: backend
     dockerfilePath: ./Dockerfile
     dockerContext: .
+    healthCheckPath: /api/health
     # Free plan: sleeps after 15 min idle (first request then takes ~1 min) and has no persistent disk,
     # so uploaded files (photos, ID documents) are lost on every redeploy/restart.
     # Before real users: set plan: starter and add back

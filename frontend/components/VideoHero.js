@@ -7,7 +7,7 @@ import { ArrowRight, BadgeCheck, Search } from 'lucide-react';
 // and scrolling cross-fades between the clips below. Put the files in frontend/public/videos/.
 // A missing or unplayable file shows a striped placeholder instead of breaking the page.
 const SCENES = [
-  { label: 'Laundry', src: '/videos/laundry.mp4', title: 'Laundry done by hand, done properly.', sub: 'Washing, ironing and folding by workers your neighbours already booked and rated.' },
+  { label: 'Laundry', src: '/videos/laundry.mp4', title: 'Laundry done properly, by hand or machine.', sub: 'Washing, ironing and folding by workers your neighbours already booked and rated.' },
   { label: 'Mechanic', src: '/videos/mechanic.mp4', title: 'Your car, back on the road today.', sub: 'Certified mechanics for diagnostics, servicing and roadside repairs in your district.' },
   { label: 'Babysitter', src: '/videos/babysitter.mp4', title: 'Care you can leave the house for.', sub: 'Childcare with checked references, verified identity and reviews from other parents.' },
   { label: 'Gardener', src: '/videos/gardener.mp4', title: 'A garden that looks looked-after.', sub: 'Lawn care, trimming and planting, booked by the visit or by the season.' },
