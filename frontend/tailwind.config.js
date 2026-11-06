@@ -4,7 +4,7 @@ const config = {
   theme: {
     extend: {
       colors: {
-        brand: { 50: '#FFF7ED', 100: '#FFEDD5', 500: '#F97316', 600: '#EA580C', 700: '#C2410C' },
+        brand: { 50: '#FFF7ED', 100: '#FFEDD5', 300: '#FDBA74', 500: '#F97316', 600: '#EA580C', 700: '#C2410C' },
         ink: '#1A1A1A',
         canvas: '#F8F8F7',
       },
