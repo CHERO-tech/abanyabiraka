@@ -83,6 +83,20 @@ Pick one of these. Never share secrets through git, GitHub issues, or PR comment
 
 ## Deployment
 
+### Render (recommended)
+
+The repo has a Render Blueprint, [`render.yaml`](render.yaml). It creates the PostgreSQL database, the API (built from [`backend/Dockerfile`](backend/Dockerfile)) and the Next.js site. In Render: **New → Blueprint →** pick this repo, then fill in the values it asks for:
+
+| Variable | Service | Value |
+|---|---|---|
+| `CORS_ALLOWED_ORIGINS` | abanyabiraka-api | The frontend URL, e.g. `https://abanyabiraka-web.onrender.com` (no trailing slash) |
+| `MAIL_USERNAME` / `MAIL_PASSWORD` | abanyabiraka-api | Project Gmail and its App Password (can be left empty) |
+| `NEXT_PUBLIC_API_BASE_URL` | abanyabiraka-web | The API URL + `/api`, e.g. `https://abanyabiraka-api.onrender.com/api` |
+
+Render fills in the database settings (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD`) and generates `JWT_SECRET` itself. Test the backend image locally with `docker build -t abanyabiraka-api backend`.
+
+### Any other host
+
 On a server or hosting platform, don't upload a `.env` file. Set the same variables as **environment variables** in the platform's settings (Render/Railway/Fly "Environment", a Docker `--env-file` kept on the server, or systemd `Environment=`). Real environment variables take priority over `.env` and `application.yml`.
 
 **Backend checklist:**
@@ -92,7 +106,8 @@ On a server or hosting platform, don't upload a `.env` file. Set the same variab
 3. Set `MAIL_USERNAME` / `MAIL_PASSWORD` with a dedicated project Gmail and its own App Password. For larger volume, switch to a transactional email service (e.g. Brevo, Mailgun) by also setting `MAIL_HOST` and `MAIL_PORT`.
 4. Uploaded files are stored in `backend/uploads/`. Use a persistent disk or volume, or they are lost on every redeploy.
 5. Build and run: `mvn clean package` → `java -jar target/*.jar`. Migrations run automatically on startup.
-6. Restrict CORS to the real frontend domain. `config/CorsConfig.java` currently allows `*`.
+6. Set `CORS_ALLOWED_ORIGINS` to the real frontend domain (comma-separated if more than one). The default only allows `http://localhost:3000`.
+7. The server listens on `$PORT` if it is set, and on 8080 otherwise. `JWT_SECRET` has no default, so the app refuses to start without it.
 
 **Frontend checklist:**
 
