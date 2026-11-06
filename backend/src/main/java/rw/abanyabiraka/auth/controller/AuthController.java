@@ -2,11 +2,14 @@ package rw.abanyabiraka.auth.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rw.abanyabiraka.auth.dto.AuthResponse;
+import rw.abanyabiraka.auth.dto.CurrentUserResponse;
 import rw.abanyabiraka.auth.dto.ForgotPasswordRequest;
 import rw.abanyabiraka.auth.dto.LoginRequest;
 import rw.abanyabiraka.auth.dto.MessageResponse;
@@ -36,6 +39,13 @@ public class AuthController {
         return ResponseEntity.ok(authService.verifyRegistrationOtp(request));
     }
 
+    // Body is just { identifier }, same shape as forgot-password.
+    @PostMapping("/resend-otp")
+    public ResponseEntity<MessageResponse> resendOtp(@Valid @RequestBody ForgotPasswordRequest request) {
+        authService.resendRegistrationOtp(request);
+        return ResponseEntity.ok(new MessageResponse("If that account is waiting for verification, a new code has been sent."));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
@@ -51,5 +61,10 @@ public class AuthController {
     public ResponseEntity<MessageResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
         authService.resetPassword(request);
         return ResponseEntity.ok(new MessageResponse("Password updated. You can now log in."));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<CurrentUserResponse> me(Authentication authentication) {
+        return ResponseEntity.ok(authService.currentUser(authentication.getName()));
     }
 }

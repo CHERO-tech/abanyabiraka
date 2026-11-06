@@ -5,8 +5,13 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import rw.abanyabiraka.auth.entity.OtpCode;
 import rw.abanyabiraka.auth.entity.OtpPurpose;
 import rw.abanyabiraka.auth.repository.OtpCodeRepository;
@@ -23,8 +28,15 @@ public class OtpService {
     private final OtpCodeRepository otpCodeRepository;
     private final SecureRandom random = new SecureRandom();
 
-    public OtpService(OtpCodeRepository otpCodeRepository) {
+    private final JavaMailSender mailSender;
+    private final String mailFrom;
+
+    public OtpService(OtpCodeRepository otpCodeRepository,
+                      JavaMailSender mailSender,
+                      @Value("${spring.mail.username:}") String mailFrom) {
         this.otpCodeRepository = otpCodeRepository;
+        this.mailSender = mailSender;
+        this.mailFrom = mailFrom;
     }
 
     /**
@@ -42,8 +54,33 @@ public class OtpService {
         otp.setExpiresAt(Instant.now().plus(EXPIRY_MINUTES, ChronoUnit.MINUTES));
         otpCodeRepository.save(otp);
 
-        // TODO(Phase 1 follow-up): replace with real SMS/email delivery.
+        // Email identifiers get a real email when SMTP is configured (MAIL_USERNAME/MAIL_PASSWORD).
+        // Phone numbers still have no SMS provider (e.g. Africa's Talking), so their code is only logged.
+        if (identifier.contains("@") && StringUtils.hasText(mailFrom) && sendEmail(identifier, purpose, code)) {
+            log.info("OTP for {} [{}] sent by email", identifier, purpose);
+            return;
+        }
         log.info("OTP for {} [{}]: {} (expires in {} min)", identifier, purpose, code, EXPIRY_MINUTES);
+    }
+
+    private boolean sendEmail(String to, OtpPurpose purpose, String code) {
+        boolean reset = purpose == OtpPurpose.PASSWORD_RESET;
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("Abanyabiraka <" + mailFrom + ">");
+        message.setTo(to);
+        message.setSubject(reset ? "Your Abanyabiraka password reset code" : "Your Abanyabiraka verification code");
+        message.setText("Muraho,\n\n"
+                + (reset ? "Use this code to reset your Abanyabiraka password: " : "Use this code to verify your Abanyabiraka account: ")
+                + code + "\n\nIt expires in " + EXPIRY_MINUTES + " minutes. Never share it with anyone.\n\n"
+                + "If you didn't request this, you can ignore this email.\n\nAbanyabiraka");
+        try {
+            mailSender.send(message);
+            return true;
+        } catch (MailException ex) {
+            // Don't fail registration because email is down; fall back to the log so dev isn't blocked.
+            log.warn("Could not email OTP to {}: {}", to, ex.getMessage());
+            return false;
+        }
     }
 
     /**
