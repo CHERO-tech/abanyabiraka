@@ -5,12 +5,10 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
-import org.springframework.util.StringUtils;
 import rw.abanyabiraka.auth.entity.OtpCode;
 import rw.abanyabiraka.auth.entity.OtpPurpose;
 import rw.abanyabiraka.auth.repository.OtpCodeRepository;
@@ -28,19 +26,15 @@ public class OtpService {
     private final SecureRandom random = new SecureRandom();
 
     private final OtpMailer otpMailer;
-    private final String mailFrom;
 
-    public OtpService(OtpCodeRepository otpCodeRepository,
-                      OtpMailer otpMailer,
-                      @Value("${spring.mail.username:}") String mailFrom) {
+    public OtpService(OtpCodeRepository otpCodeRepository, OtpMailer otpMailer) {
         this.otpCodeRepository = otpCodeRepository;
         this.otpMailer = otpMailer;
-        this.mailFrom = mailFrom;
     }
 
     /**
      * Generates a new code, stores it, and sends it to the identifier: by email (in the
-     * background) when SMTP is configured, otherwise it is only written to the log.
+     * background) when an email provider is configured, otherwise it is only written to the log.
      */
     public void generateAndSend(String identifier, OtpPurpose purpose) {
         String code = generateCode();
@@ -52,12 +46,12 @@ public class OtpService {
         otp.setExpiresAt(Instant.now().plus(EXPIRY_MINUTES, ChronoUnit.MINUTES));
         otpCodeRepository.save(otp);
 
-        // Email identifiers get a real email when SMTP is configured (MAIL_USERNAME/MAIL_PASSWORD).
+        // Email identifiers get a real email when a provider is configured (see OtpMailer).
         // It's sent in the background once the transaction commits, so a slow or blocked mail server
         // can't stall sign-up (and no email goes out for an account that was rolled back).
         // Phone numbers still have no SMS provider (e.g. Africa's Talking), so their code is only logged.
-        if (identifier.contains("@") && StringUtils.hasText(mailFrom)) {
-            Runnable send = () -> otpMailer.send(mailFrom, identifier, purpose, code, EXPIRY_MINUTES);
+        if (identifier.contains("@") && otpMailer.isEnabled()) {
+            Runnable send = () -> otpMailer.send(identifier, purpose, code, EXPIRY_MINUTES);
             if (TransactionSynchronizationManager.isSynchronizationActive()) {
                 TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
                     @Override
