@@ -42,10 +42,12 @@ services:
         value: "-XX:MaxRAMPercentage=75 -XX:+UseSerialGC -Xss512k"   # fits the 512 MB free instance
       - key: CORS_ALLOWED_ORIGINS
         sync: false                  # e.g. https://abanyabiraka-web.onrender.com
-      - key: MAIL_USERNAME
-        sync: false                  # project Gmail address (leave empty to log codes instead)
-      - key: MAIL_PASSWORD
-        sync: false                  # Google App Password for that Gmail
+      # OTP email. Render's free plan blocks SMTP, so send through Brevo's HTTPS API instead.
+      # Leave both empty and codes are only written to the Logs tab.
+      - key: BREVO_API_KEY
+        sync: false                  # Brevo -> SMTP & API -> API keys
+      - key: MAIL_FROM
+        sync: false                  # a sender address verified in Brevo (e.g. the project Gmail)
 
   # ---------- Frontend: Next.js ----------
   - type: web
