@@ -48,6 +48,10 @@ services:
         sync: false                  # Brevo -> SMTP & API -> API keys
       - key: MAIL_FROM
         sync: false                  # a sender address verified in Brevo (e.g. the project Gmail)
+      - key: ADMIN_EMAIL
+        sync: false                  # the admin login; created or promoted on every start
+      - key: ADMIN_PASSWORD
+        sync: false                  # 8+ characters; changing it changes the admin password
 
   # ---------- Frontend: Next.js ----------
   - type: web

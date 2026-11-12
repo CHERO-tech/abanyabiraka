@@ -62,6 +62,7 @@ All secrets live in **`backend/.env`**, which is in `.gitignore`. Spring loads i
 | `MAIL_USERNAME` | Gmail address that sends verification codes | no (codes go to the log instead) |
 | `MAIL_PASSWORD` | A Google **App Password** for that Gmail account, **not** the normal Gmail password | no |
 | `BREVO_API_KEY`, `MAIL_FROM` | Send codes through [Brevo](https://www.brevo.com)'s HTTPS API instead of SMTP (free: 300 emails/day). **Needed on Render's free plan, which blocks SMTP.** `MAIL_FROM` must be a sender address verified in Brevo | no (production: yes) |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Create (or promote) an admin account on startup, since nobody can sign up as admin. Password 8+ characters. Optional `ADMIN_NAME` | no |
 
 ### Before every push
 
@@ -92,6 +93,7 @@ The repo has a Render Blueprint, [`render.yaml`](render.yaml). It creates the Po
 |---|---|---|
 | `CORS_ALLOWED_ORIGINS` | abanyabiraka-api | The frontend URL, e.g. `https://abanyabiraka-web.onrender.com` (no trailing slash) |
 | `BREVO_API_KEY` / `MAIL_FROM` | abanyabiraka-api | Brevo API key and a sender address verified in Brevo. Leave empty and codes only appear in the Logs tab |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | abanyabiraka-api | The admin login. Created (already verified) on startup, or an existing account with that email is promoted to admin. The password is reset to `ADMIN_PASSWORD` on every start |
 | `NEXT_PUBLIC_API_BASE_URL` | abanyabiraka-web | The API URL + `/api`, e.g. `https://abanyabiraka-api.onrender.com/api` |
 
 Render fills in the database settings (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD`) and generates `JWT_SECRET` itself. Test the backend image locally with `docker build -t abanyabiraka-api backend`.
